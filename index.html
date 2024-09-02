@@ -13,6 +13,7 @@
         height: 100%;
         overflow: hidden;
       }
+
       .image-container {
         width: 100%;
         height: 100%;
@@ -21,19 +22,46 @@
         align-items: center;
         background-color: #f0f0f0;
       }
+
       .mini-image {
         max-width: 100%;
         max-height: 100%;
         object-fit: contain;
       }
+
+      .leaf {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        animation: fall linear forwards;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-100vh);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh);
+          opacity: 0;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="image-container">
-      <img id="miniImage" class="mini-image" alt="MINI車の画像" />
+      <img id="miniImage" class="mini-image" alt="car_image" />
     </div>
-
     <script>
+      // ここに紅葉の画像URLを追加してください。
+      const leafImages = [
+        "https://wanpug.com/illust354_thumb.gif", // 紅葉の画像1
+        "https://wanpug.com/illust350_thumb.gif",
+        "https://free-icons.net/wp-content/uploads/2020/09/nature029.png", // 紅葉の画像2
+      ];
+
       const miniImages = [
         "https://www.mini.jp/ja_JP/home/home-stageteaser/all-electric-mini-aceman/jcr:content/main/homestageHelper/stageitem/motion.wide.1920w.j_1717467375594.jpg",
         "https://www.mini.jp/ja_JP/home/home-stageteaser/all-electric-mini-countryman/jcr:content/main/homestageHelper/stageitem/motion.wide.1920w.j_1716265503279.jpg",
@@ -49,8 +77,32 @@
         img.src = miniImages[randomIndex];
       }
 
+      function createLeaf() {
+        const leaf = document.createElement("div");
+        leaf.className = "leaf";
+        const randomLeafImage =
+          leafImages[Math.floor(Math.random() * leafImages.length)];
+        leaf.style.backgroundImage = `url(${randomLeafImage})`;
+        leaf.style.left = Math.random() * 100 + "vw";
+        leaf.style.top = "-30px"; // アニメーションの開始位置を画面の上に設定
+        leaf.style.width = Math.random() * 30 + 20 + "px"; // サイズをランダムに変更
+        leaf.style.height = leaf.style.width; // 正方形に設定
+        leaf.style.animationDuration = Math.random() * 3 + 2 + "s";
+        document.body.appendChild(leaf);
+        setTimeout(() => {
+          leaf.remove();
+        }, 5000);
+      }
+
+      function startLeafAnimation() {
+        setInterval(createLeaf, 300); // 紅葉を生成する間隔を設定
+      }
+
       // ページ読み込み時に画像を表示
-      window.onload = displayRandomImage;
+      window.onload = function () {
+        displayRandomImage();
+        setTimeout(startLeafAnimation, 3000); // 3秒後に紅葉アニメーションを開始
+      };
     </script>
   </body>
 </html>
