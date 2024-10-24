@@ -12,8 +12,21 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
-        background: none; /* 透明な背景 */
-        background-color: rgba(0, 0, 0, 0); /* 完全に透明 */
+      }
+
+      .image-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f0f0;
+      }
+
+      .mini-image {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
       }
 
       .leaf {
@@ -38,13 +51,31 @@
     </style>
   </head>
   <body>
+    <div class="image-container">
+      <img id="miniImage" class="mini-image" alt="car_image" />
+    </div>
     <script>
       // ここに紅葉の画像URLを追加してください。
       const leafImages = [
-        "https://www.bezybox.net/sozai/wp-content/uploads/2021/05/pumpkin-illust02.png", // 画像1
-        "https://www.bezybox.net/sozai/wp-content/uploads/2021/05/ghost-illust01.png", // 画像2
-        "https://www.bezybox.net/sozai/wp-content/uploads/2021/05/pumpkin-illust01.png", // 画像3
+        "https://illustimage.com/photo/1401.png?20221001", // 画像1
+        "https://illustimage.com/photo/1410.png?20221001", // 画像2
+        "https://illustimage.com/photo/1279.png?20150825", // 画像3
       ];
+
+      const miniImages = [
+        "https://www.mini.jp/ja_JP/home/home-stageteaser/all-electric-mini-aceman/jcr:content/main/homestageHelper/stageitem/motion.wide.1920w.j_1717467375594.jpg",
+        "https://www.mini.jp/ja_JP/home/home-stageteaser/all-electric-mini-countryman/jcr:content/main/homestageHelper/stageitem/motion.wide.1920w.j_1716265503279.jpg",
+        "https://www.mini.jp/ja_JP/home/home-stageteaser/mini-countryman1/jcr:content/main/homestageHelper/stageitem/motion.wide.1920w.j_1715945356844.jpg",
+        "https://www.mini.jp/ja_JP/home/home-stageteaser/the-new-mini-cooper/jcr:content/main/homestageHelper/stageitem/motion.wide.1920w.j_1716263337415.jpg",
+        "https://www.mini.jp/ja_JP/home/home-stageteaser/all-electric-mini-cooper/jcr:content/main/homestageHelper/stageitem/motion.wide.1920w.j_1716264037040.jpg",
+        "https://www.mini.jp/ja_JP/home/home-stageteaser/mini-cooper-5-door/jcr:content/main/homestageHelper/stageitem/motion.wide.1920w.j_1718176999794.jpg",
+      ];
+
+      function displayRandomImage() {
+        const img = document.getElementById("miniImage");
+        const randomIndex = Math.floor(Math.random() * miniImages.length);
+        img.src = miniImages[randomIndex];
+      }
 
       function createLeaf() {
         const leaf = document.createElement("div");
@@ -69,8 +100,10 @@
 
       // ページ読み込み時に画像を表示
       window.onload = function () {
+        displayRandomImage();
         setTimeout(startLeafAnimation, 3000); // 3秒後に紅葉アニメーションを開始
       };
     </script>
   </body>
 </html>
+
